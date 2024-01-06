@@ -17,13 +17,23 @@ public class Program2 {
 		
 		//Instanciando o método do createDepartmentDao por meio da classe DaoFactory
 		//Para depois ter acesso aos métodos da classe DepartmentDaoJDBC
-		DepartmentDao dDao = DaoFactory.createDepartmentDao();
+		DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
 		
 		System.out.println("=== 1º teste -> Insert ======");
 		System.out.print("Qual departamento quer inserir? ");
-		String dName = sc.next();
+		String dName = sc.nextLine();
 		department.setName(dName);		
-		dDao.insert(department);
+		departmentDao.insert(department);
+		
+		System.out.println("=== 2º teste -> Update ======");		
+		System.out.print("Qual o ID do departmento? ");
+		int id = sc.nextInt();
+		sc.nextLine();
+		System.out.print("Qual será o novo nome deste departmento? ");
+		String newDepartment = sc.nextLine();
+		department.setId(id);
+		department.setName(newDepartment);
+		departmentDao.update(department);
 	}
 
 }

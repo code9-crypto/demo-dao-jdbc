@@ -2,7 +2,9 @@ package model.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import db.DB;
@@ -23,11 +25,16 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		PreparedStatement st = null;
 		try {
 			String query = "insert into department (Name) values (?)";
-			st = conn.prepareStatement(query);
+			st = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, obj.getName());
-			int linhasAfetadas = st.executeUpdate();
-			if( linhasAfetadas > 0 ) {
+			int linhasInsert = st.executeUpdate();
+			if( linhasInsert > 0 ) {
 				System.out.println("Insert realizado com sucesso!!!");
+				ResultSet rs = st.getGeneratedKeys();
+				while( rs.next() ) {
+					int id = rs.getInt(1);
+					System.out.println("Seguinte ID foi inserido: " + id);
+				}
 			}else {
 				throw new DbException("Houve um problema na inserção deste registro");
 			}
@@ -36,13 +43,27 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		}finally {
 			DB.closeStatement(st);
 		}
-		
-		
 	}
 
 	@Override
 	public void update(Department obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+			String query = "update department set Name = ? where Id = ?";
+			st = conn.prepareStatement(query);
+			st.setString(1, obj.getName());
+			st.setInt(2, obj.getId());
+			int linhasUpdate = st.executeUpdate();
+			if( linhasUpdate > 0 ) {
+				System.out.println("Update realizado com sucesso!!!");
+			}else {
+				throw new DbException("Houve um problema na atualização deste registro");
+			}
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}finally {
+			DB.closeStatement(st);
+		}
 		
 	}
 
