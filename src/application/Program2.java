@@ -25,6 +25,7 @@ public class Program2 {
 		department.setName(dName);		
 		departmentDao.insert(department);
 		
+		System.out.println();
 		System.out.println("=== 2º teste -> Update ======");		
 		System.out.print("Qual o ID do departmento? ");
 		int id = sc.nextInt();
@@ -34,6 +35,12 @@ public class Program2 {
 		department.setId(id);
 		department.setName(newDepartment);
 		departmentDao.update(department);
+		
+		System.out.println();
+		System.out.println("=== 3º teste -> Delete ======");
+		System.out.print("Digite o ID que deseja apagar: ");
+		int idDel = sc.nextInt();
+		departmentDao.deleteById(idDel);
 	}
 
 }
