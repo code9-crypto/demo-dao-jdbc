@@ -41,6 +41,13 @@ public class Program2 {
 		System.out.print("Digite o ID que deseja apagar: ");
 		int idDel = sc.nextInt();
 		departmentDao.deleteById(idDel);
+		
+		System.out.println();
+		System.out.println("=== 4º teste -> Select por ID ======");
+		System.out.print("Qual o ID do departmento que deseja encontrar: ");
+		int idSel = sc.nextInt();
+		department = departmentDao.findById(idSel);
+		System.out.println(department);
 	}
 
 }
