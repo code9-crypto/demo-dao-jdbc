@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import model.dao.DaoFactory;
@@ -43,11 +45,19 @@ public class Program2 {
 		departmentDao.deleteById(idDel);
 		
 		System.out.println();
-		System.out.println("=== 4º teste -> Select por ID ======");
+		System.out.println("=== 4º teste -> Select por ID(findById) ======");
 		System.out.print("Qual o ID do departmento que deseja encontrar: ");
 		int idSel = sc.nextInt();
 		department = departmentDao.findById(idSel);
 		System.out.println(department);
+		
+		System.out.println();
+		System.out.println("=== 5º teste -> Select (findAll) ======");
+		List<Department> listDepartment = new ArrayList<>();
+		listDepartment = departmentDao.findAll();
+		for (Department dep : listDepartment) {
+			System.out.println(dep);
+		}
 	}
 
 }
